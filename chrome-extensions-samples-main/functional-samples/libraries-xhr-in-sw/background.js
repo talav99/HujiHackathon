@@ -1,37 +1,4 @@
-// chrome.runtime.onInstalled.addListener(() => {
-//   chrome.contextMenus.create({
-//     id: "save-selection",
-//     title: "Save selected text",
-//     contexts: ["selection"]
-//   });
-// });
-//
-// chrome.contextMenus.onClicked.addListener(async (info, tab) => {
-//   if (info.menuItemId === "save-selection") {
-//     const selectedText = info.selectionText;
-//     const url = tab.url;
-//     const title = tab.title;
-//
-//     // Store data in extension memory (or use chrome.storage)
-//     chrome.storage.local.set({
-//       savedData: {
-//         url,
-//         title,
-//         selectedText
-//       }
-//     }, () => {
-//       console.log("Data saved:", { url, title, selectedText });
-//
-//       // Open popup or trigger visible UI
-//       chrome.scripting.executeScript({
-//         target: { tabId: tab.id },
-//         func: () => {
-//           alert("hello");
-//         }
-//       });
-//     });
-//   }
-// });
+
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
