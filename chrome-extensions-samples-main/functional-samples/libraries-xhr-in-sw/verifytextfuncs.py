@@ -26,6 +26,7 @@ def check_domain_reliability(url):
         if is_trusted else
         f"The domain {full_domain} is not listed as a known reliable source. Caution is advised."
     )
+    print(is_trusted)
     return is_trusted, full_domain, explanation
 
 def check_text_reliability(text):
@@ -34,10 +35,11 @@ Otherwise, search only the following websites for relevant references:"bloomberg
 "berkshirehathaway.com", "finance.yahoo.com", "tradingview.com", "marketwatch.com"
 For each reference you find, return only one line in the following format:
 Score: <number between 0-100> <the url>
-Do not add any explanation, summary, or additional text.
+Do not add any explanation, summary, or additional text. limit answer to 3 urls
 Text: {text}"""
     #response = MODEL.ask(prompt)
-    response = "70 https://www.bloomberg.com/news/articles/2023-10-01/example-article\n"
+    response = "Score: 70 https://www.bloomberg.com/news/articles/2023-10-01/example-article\n"
+    print(response.splitlines())
     return response.splitlines()
 
 
@@ -49,7 +51,7 @@ def generate_output(url, article_text):
     numbers = []
     for line in score_response:
         # Extract substring at positions 6-8 (index 5 to 8, exclusive)
-        substring = line[5:8]
+        substring = line[7:9]
         # Extract numeric part from substring
         num_str = ''
         for ch in substring:
@@ -59,6 +61,7 @@ def generate_output(url, article_text):
                 break
         if num_str:
             numbers.append(int(num_str))
+    print(numbers)
     if numbers:
         response =  str(sum(numbers) / len(numbers)) + "\n"
         for line in score_response:
@@ -71,36 +74,10 @@ def generate_output(url, article_text):
         return "0\nNo relevant references found.\n"
 
 
-# def generate_output(url, article_text):
-#         domain_trust, domain_name, domain_explanation = check_domain_reliability(url)
-#
-#         # Always check text, regardless of domain trust
-#         score_response = check_text_reliability(article_text)
-#
-#         numbers = []
-#         links = []
-#
-#         for line in score_response:
-#             # Try to match: Score: <number> <url>
-#             match = re.match(r"Score:\s*(\d+)\s+(https?://\S+)", line)
-#             if match:
-#                 score = int(match.group(1))
-#                 url = match.group(2)
-#                 numbers.append(score)
-#                 links.append(url)
-#             elif "Score: 0" in line:
-#                 return "⚠️ Baseless claim detected.\nScore: 0", []
-#
-#         if numbers:
-#             avg_score = round(sum(numbers) / len(numbers), 2)
-#             return f"✅ Verified claims found.\nAverage Score: {avg_score}", links
-#
-#         return "⚠️ No verifiable sources found.", []
-
 if __name__ == '__main__':
 
     url = "https://www.shahar.com/news/articles/2023-10-01/example-article"
-    article_text = "This is an example article text that discusses economic trends."
+    article_text = f"NVIDIA stock is above 130$"
 
     score = generate_output(url, article_text)
     print(score)
