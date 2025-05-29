@@ -1,17 +1,21 @@
 {
-  "name": "Fetching Titles",
-  "version": "0.1",
   "manifest_version": 3,
-  "description": "This extension fetches the titles of all the tabs in the current window and displays them in a side panel.",
-  "background": {
-    "service_worker": "dist/background.js"
-  },
-  "permissions": ["activeTab", "sidePanel"],
+  "name": "Text Saver",
+  "version": "0.1",
+  "description": "Right-click text to save and display selected text",
+  "permissions": [
+    "contextMenus",
+    "tabs",
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
   "host_permissions": ["<all_urls>"],
-  "side_panel": {
-    "default_path": "sidepanel/index.html"
+  "background": {
+    "service_worker": "background.js"
   },
   "action": {
-    "default_title": "Fetch the title of the current tab"
+    "default_popup": "popup.html",
+    "default_title": "View saved text"
   }
 }
