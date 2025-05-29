@@ -22,7 +22,7 @@ def check_domain_reliability(url):
     full_domain = f"{domain.domain}.{domain.suffix}"
     is_trusted = full_domain in TRUSTED_DOMAINS
     explanation = (
-        f"score: 100 \nThe domain {full_domain} is considered a reliable financial source."
+        f"score: 100<br>The domain {full_domain} is considered a reliable financial source."
         if is_trusted else
         f"The domain {full_domain} is not listed as a known reliable source. Caution is advised."
     )
@@ -63,15 +63,15 @@ def generate_output(url, article_text):
             numbers.append(int(num_str))
     print(numbers)
     if numbers:
-        response =  str(sum(numbers) / len(numbers)) + "\n"
+        response = str(sum(numbers) / len(numbers)) + "<br>"
         for line in score_response:
             match = re.search(r'\d+', line)
             if match:
-                response += line[match.end():] + "\n"
+                response += line[match.end():] + "<br>"
             response += "\n"
         return response
     else:
-        return "0\nNo relevant references found.\n"
+        return "Score: 0<br>No relevant references found.\n"
 
 
 if __name__ == '__main__':
