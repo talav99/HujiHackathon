@@ -1,7 +1,7 @@
 chrome.runtime.onInstalled.addListener(() => {
     chrome.contextMenus.create({
         id: "save-selection",
-        title: "Save selected text",
+        title: "Verifinance",
         contexts: ["selection"]
     });
 });
@@ -71,10 +71,17 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
                         animation: fadeIn 0.3s ease-out;
                     `;
 
-                    modal.innerHTML = `
-                        <div style="font-size: 24px; margin-bottom: 12px;">Verifinance</div>
-                        <div style="color: #555;">${fetchedText}</div>
-                    `;
+modal.innerHTML = `
+    <div style="margin-bottom: 24px; text-align: center;">
+        <img src="${chrome.runtime.getURL('logo.jpg')}" alt="Logo" style="max-height: 200px; max-width: 90%;" />
+    </div>
+    <div style="color: #555;">
+        ${fetchedText
+            .replace(/\n/g, "<br>")
+            .replace(/score:\s*(\d+)/gi, '<span style="font-weight:500;">score: $1</span>')
+            .replace(/(https?:\/\/[^\s]+)/g, '<br><span style="font-weight:300;">based on the source site:</span><br><a href="$1" target="_blank" style="color: #1a0dab;">$1</a>')}
+    </div>
+`;
 
                     const closeBtn = document.createElement('button');
                     closeBtn.textContent = 'Close';
@@ -147,10 +154,10 @@ if (fetchedText.includes("score: 100")) {
     }, 5000);
 }
 
+
                 },
                 args: [fetchedText]
             });
         });
     }
 });
-

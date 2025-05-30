@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import re
 import gemini
 
-MODEL = gemini.init_model("gemini-2.0-flash-lite")
+MODEL = gemini.init_model("gemini-2.0-flash")
 # List of trusted economic/financial domains (U.S./global sources)
 TRUSTED_DOMAINS = {
     "bloomberg.com",
@@ -31,14 +31,15 @@ def check_domain_reliability(url):
 
 def check_text_reliability(text):
     prompt = f""" Check if the text contains a baseless claim or recommendation. If it does, return only:Score: 0.
-Otherwise, search only the following websites for relevant references:"bloomberg.com", "reuters.com", "cnbc.com", 
+Otherwise, search only!! and just in the following websites for relevant references:"bloomberg.com", "reuters.com", "cnbc.com", 
 "berkshirehathaway.com", "finance.yahoo.com", "tradingview.com", "marketwatch.com"
 For each reference you find, return only one line in the following format:
 Score: <number between 0-100> <the url>
 Do not add any explanation, summary, or additional text. limit answer to 3 urls
 Text: {text}"""
-    #response = MODEL.ask(prompt)
-    response = "Score: 70 https://www.bloomberg.com/news/articles/2023-10-01/example-article\n"
+    response = MODEL.ask(prompt)
+    print(text)
+    #response = "Score: 40 https://www.bloomberg.com/news/articles/2023-10-01/example-article\n"
     print(response.splitlines())
     return response.splitlines()
 
@@ -51,7 +52,7 @@ def generate_output(url, article_text):
     numbers = []
     for line in score_response:
         # Extract substring at positions 6-8 (index 5 to 8, exclusive)
-        substring = line[7:9]
+        substring = line[7:10]
         # Extract numeric part from substring
         num_str = ''
         for ch in substring:
@@ -71,6 +72,7 @@ def generate_output(url, article_text):
             response += "\n"
         return response
     else:
+        print("here")
         return "Score: 0<br>No relevant references found.\n"
 
 

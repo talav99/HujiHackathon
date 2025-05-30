@@ -1,18 +1,3 @@
-# from flask import Flask, Response, request
-# from verifytextfuncs import generate_output
-#
-# app = Flask(__name__)
-#
-# @app.route("/hello", methods=["GET", "OPTIONS"])
-# def hello():
-#     print("hello")
-#     return "text_text"
-#
-#
-#
-#
-# if __name__ == "__main__":
-#     app.run(debug=True)
 
 from flask import Flask, request, jsonify
 from verifytextfuncs import generate_output
