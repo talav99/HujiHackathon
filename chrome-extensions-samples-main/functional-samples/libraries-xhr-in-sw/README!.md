@@ -4,16 +4,16 @@
 
 ## 🔧 Features
 
-- 🖱️ **Right-click to verify** any selected financial text
-- 🤖 **AI-backed analysis** using Google Gemini
-- 🔍 **Domain reliability check** for trusted sources
-- 💾 **Auto-saves** the selected content locally
-- 🎉 **Visual effects** (e.g., confetti) for top-rated sources
-- 🖼️ **Displays AI feedback** in a styled modal with your logo
+- ️ **Right-click to verify** any selected financial text
+-  **AI-backed analysis** using Google Gemini
+-  **Domain reliability check** for trusted sources
+-  **Auto-saves** the selected content locally
+-  **Visual effects** (e.g., confetti) for top-rated sources
+- ️ **Displays AI feedback** in a styled modal with your logo
 
-## 🧩 How to Use
+##  How to Use
 
-### 1. 🧪 Prerequisites
+### 1. Prerequisites
 
 - Google Chrome (latest version)
 - Python 3.8+
@@ -23,7 +23,7 @@
 - `.env` file for environment variables (optional)
 - Backend running on `http://localhost:5000`
 
-### 2. 🚀 Getting Started
+### 2. Getting Started
 
 #### Backend (Flask + Gemini AI)
 
@@ -50,7 +50,7 @@ Flask server will start on `http://localhost:5000`.
    - Trustworthiness of the domain
    - A festive animation if the score is 100 🎉
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 verifinance-extension/
@@ -64,7 +64,7 @@ verifinance-extension/
 └── .env                   # (Optional) Environment vars
 ```
 
-## ✅ Example Flow
+## Example Flow
 
 1. **User selects** a sentence like: `"This penny stock will make you rich!"`
 2. **Right-click → Verifinance**
@@ -89,7 +89,7 @@ verifinance-extension/
    based on the source site: https://www.bloomberg.com/news/...
    ```
 
-## 🧠 Gemini AI Models Supported
+##  Gemini AI Models Supported
 
 You can choose from:
 - `gemini-1.5-flash` (default)
@@ -97,18 +97,18 @@ You can choose from:
 - `gemini-2.5-pro-preview-05-06`
 - ...and others defined in `Gemini.AVAILABLE_MODELS`
 
-## 🛠️ Customization
+## ️ Customization
 
 - **Trusted Domains**: Modify `TRUSTED_DOMAINS` in `verifytextfuncs.py`
 - **Popup UI**: Edit styles inside the script section in `background.js`
 - **Animation**: Confetti effect triggered when score is 100
 
-## 🧪 Troubleshooting
+##  Troubleshooting
 
 - Make sure the Flask server is running at `http://localhost:5000`
 - Use correct path to your Google Gemini service account JSON
 - Check console logs (`background.js`) for fetch or runtime errors
 
-## 📄 License
+## License
 
 MIT License
