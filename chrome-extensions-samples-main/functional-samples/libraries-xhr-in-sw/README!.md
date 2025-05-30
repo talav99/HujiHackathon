@@ -2,7 +2,7 @@
 
 **Verifinance** is a Chrome extension that verifies the reliability of selected financial text from any website using Google Gemini AI. It evaluates the selected content and the source domain, providing a credibility score and suggested trustworthy links — all within a user-friendly popup.
 
-## 🔧 Features
+## Features
 
 - ️ **Right-click to verify** any selected financial text
 -  **AI-backed analysis** using Google Gemini
