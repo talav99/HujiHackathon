@@ -1,135 +1,114 @@
-📊 Verifinance — Chrome Extension for Financial Text Verification
-Verifinance is a Chrome Extension that helps users verify the reliability of financial information found on the web. 
-It uses Google Gemini to analyze selected text and determines its credibility based on domain reputation and 
-cross-referencing with trusted financial sources.
+# Verifinance Chrome Extension
 
-🚀 Features
-✅ Right-click any text on a webpage to verify it.
+**Verifinance** is a Chrome extension that verifies the reliability of selected financial text from any website using Google Gemini AI. It evaluates the selected content and the source domain, providing a credibility score and suggested trustworthy links — all within a user-friendly popup.
 
-🔍 Automatically checks if the source is a reliable financial domain.
+## 🔧 Features
 
-🧠 Uses Gemini AI to find supporting links from trusted sources.
+- 🖱️ **Right-click to verify** any selected financial text
+- 🤖 **AI-backed analysis** using Google Gemini
+- 🔍 **Domain reliability check** for trusted sources
+- 💾 **Auto-saves** the selected content locally
+- 🎉 **Visual effects** (e.g., confetti) for top-rated sources
+- 🖼️ **Displays AI feedback** in a styled modal with your logo
 
-💾 Saves selected data (URL, text, timestamp) locally.
+## 🧩 How to Use
 
-🎉 Displays a styled popup with verification results.
+### 1. 🧪 Prerequisites
 
-💸 Adds a confetti animation with dollar signs if the score is 100.
+- Google Chrome (latest version)
+- Python 3.8+
+- Flask (`pip install flask`)
+- Google Generative AI SDK (`pip install google-generativeai`)
+- Valid Google Gemini service account JSON file
+- `.env` file for environment variables (optional)
+- Backend running on `http://localhost:5000`
 
-🧠 Tech Stack
-Frontend: Chrome Extension (Manifest v3, JS)
+### 2. 🚀 Getting Started
 
-Backend: Flask (Python)
+#### Backend (Flask + Gemini AI)
 
-AI Engine: Google Gemini via Generative AI
+1. **Clone the project** and ensure `verifytextfuncs.py` and `gemini.py` are present.
+2. Set your service account file path in `Gemini._SERVICE_ACCOUNT_FILE_PATH`.
+3. Run the Flask backend:
 
-Data Storage: Chrome Local Storage
-
-🛠️ Installation & Setup
-🔌 Backend (Flask Server)
-Clone the repository:
-
-bash
-Copy
-Edit
-git clone https://github.com/yourusername/verifinance
-cd verifinance/backend
-Install dependencies:
-
-bash
-Copy
-Edit
-pip install flask google-auth google-generativeai tldextract python-dotenv
-Add your Google Service Account JSON credentials to:
-
-Copy
-Edit
-gemini._SERVICE_ACCOUNT_FILE_PATH
-Run the Flask server:
-
-bash
-Copy
-Edit
+```bash
 python app.py
-Make sure it runs on http://localhost:5000.
+```
 
-🧩 Chrome Extension
-Open Chrome and go to:
+Flask server will start on `http://localhost:5000`.
 
-arduino
-Copy
-Edit
-chrome://extensions/
-Enable Developer Mode.
+#### Chrome Extension
 
-Click "Load unpacked" and select the extension folder from the project.
+1. Open `chrome://extensions/`
+2. Enable **Developer Mode**
+3. Click **Load Unpacked** and select the extension folder.
+4. Once installed, right-click any selected text on a webpage.
+5. Click **"Verifinance"** from the context menu.
+6. A styled popup will appear with:
+   - AI-generated score
+   - Recommended source links
+   - Trustworthiness of the domain
+   - A festive animation if the score is 100 🎉
 
-You should now see Verifinance in your extensions list.
+## 📁 Project Structure
 
-💡 How to Use
-Navigate to any webpage containing financial information.
+```
+verifinance-extension/
+├── background.js           # Extension logic
+├── manifest.json          # Chrome extension config
+├── popup.html             # Popup display logic
+├── logo.jpg / icons       # Branding assets
+├── app.py                 # Flask server
+├── verifytextfuncs.py     # Domain + text reliability logic
+├── gemini.py              # Gemini API client
+└── .env                   # (Optional) Environment vars
+```
 
-Highlight the text you want to verify.
+## ✅ Example Flow
 
-Right-click and choose "Verifinance" from the context menu.
+1. **User selects** a sentence like: `"This penny stock will make you rich!"`
+2. **Right-click → Verifinance**
+3. The extension sends:
 
-The extension:
+```json
+{
+  "url": "https://randomfinancialblog.com/post123",
+  "title": "Secret Stock Tips",
+  "selectedText": "This penny stock will make you rich!"
+}
+```
 
-Sends the selected text + URL to the Flask server.
+4. The backend:
+   - Checks if the domain is trusted
+   - Evaluates the sentence for financial credibility using Gemini AI
+   - Returns a score and recommended sources
 
-Uses Gemini to analyze the content.
+5. **Popup modal shows results**, e.g.:
+   ```
+   score: 20
+   based on the source site: https://www.bloomberg.com/news/...
+   ```
 
-Checks if the domain is trusted.
+## 🧠 Gemini AI Models Supported
 
-Displays a styled popup with the score and relevant sources.
+You can choose from:
+- `gemini-1.5-flash` (default)
+- `gemini-2.0-flash`
+- `gemini-2.5-pro-preview-05-06`
+- ...and others defined in `Gemini.AVAILABLE_MODELS`
 
-If the score is 100 and the domain is trustworthy, you'll see celebratory dollar-sign confetti!
+## 🛠️ Customization
 
-🛡️ Trusted Domains
-Currently trusted financial domains:
+- **Trusted Domains**: Modify `TRUSTED_DOMAINS` in `verifytextfuncs.py`
+- **Popup UI**: Edit styles inside the script section in `background.js`
+- **Animation**: Confetti effect triggered when score is 100
 
-bloomberg.com
+## 🧪 Troubleshooting
 
-reuters.com
+- Make sure the Flask server is running at `http://localhost:5000`
+- Use correct path to your Google Gemini service account JSON
+- Check console logs (`background.js`) for fetch or runtime errors
 
-cnbc.com
+## 📄 License
 
-berkshirehathaway.com
-
-finance.yahoo.com
-
-tradingview.com
-
-marketwatch.com
-
-📂 Project Structure
-pgsql
-Copy
-Edit
-verifinance/
-├── backend/
-│   ├── app.py
-│   ├── verifytextfuncs.py
-│   └── gemini.py
-├── extension/
-│   ├── background.js
-│   ├── popup.html
-│   ├── manifest.json
-│   ├── logo.jpg
-│   └── icons/
-🧪 Tips for Debugging
-Make sure Flask is running on port 5000.
-
-Use the browser console (F12) to view errors.
-
-Keep an eye on terminal output for backend logs.
-
-If the popup doesn’t show, check chrome.storage.local for saved data.
-
-📬 Future Improvements
-Database integration to store flagged URLs.
-
-Score-based warning banners on repeat visits.
-
-User feedback collection for false positives/negatives.
-
+MIT License
