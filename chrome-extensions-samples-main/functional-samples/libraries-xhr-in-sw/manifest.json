@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Save Selection Extension",
+  "name": "Verifinance",
   "version": "1.0",
   "permissions": [
     "contextMenus",
